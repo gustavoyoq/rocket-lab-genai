@@ -1,5 +1,3 @@
-"""Configurações centrais do projeto."""
-
 from __future__ import annotations
 
 import os
@@ -9,8 +7,6 @@ from pathlib import Path
 
 @dataclass(frozen=True)
 class Settings:
-    """Representa as configurações carregadas de variáveis de ambiente."""
-
     google_api_key: str
     model_name: str
     db_path: Path
@@ -20,7 +16,6 @@ class Settings:
 
 
 def load_settings() -> Settings:
-    """Carrega configurações do ambiente com valores padrão seguros."""
     api_key = os.getenv("GOOGLE_API_KEY", "").strip()
     model_name = os.getenv("MODEL_NAME", "gemini-2.5-flash-lite").strip()
     db_path = Path(os.getenv("DB_PATH", "./banco.db")).resolve()

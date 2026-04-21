@@ -1,5 +1,3 @@
-"""Orquestracao do fluxo pergunta -> SQL -> resposta."""
-
 from __future__ import annotations
 
 import asyncio
@@ -16,11 +14,7 @@ from .db import AuditLogger, DatabaseManager
 
 
 class TextToSQLService:
-    """Servico principal do agente Text-to-SQL."""
-
     def __init__(self, settings: Settings | None = None):
-        # Carrega sempre o .env do proprio projeto para evitar conflito
-        # com outros arquivos .env existentes no workspace.
         project_root = Path(__file__).resolve().parents[2]
         env_path = project_root / ".env"
         load_dotenv(dotenv_path=env_path, override=True)
@@ -47,7 +41,6 @@ class TextToSQLService:
 
     @staticmethod
     def _extract_retry_seconds(error_message: str) -> int | None:
-        """Extrai o tempo de espera sugerido pela API em mensagens de rate limit."""
         match = re.search(r"Please retry in\s*([0-9]+(?:\.[0-9]+)?)s", error_message)
         if not match:
             return None
@@ -55,7 +48,6 @@ class TextToSQLService:
 
     @staticmethod
     def _format_ascii_table(rows: list[dict[str, Any]]) -> str:
-        """Formata linhas em tabela textual simples com índice."""
         if not rows:
             return "(0 linhas)"
 
@@ -100,11 +92,9 @@ class TextToSQLService:
         message_history: list[Any] | None = None,
         verbose: bool = True,
     ) -> tuple[str, list[Any]]:
-        """Executa uma pergunta no agente e retorna resposta + historico atualizado."""
         history = message_history or []
         deps = Deps(db=self.db, audit=self.audit, user_question=question)
 
-        # Faz 1 retry automatico para erros de quota temporaria (429).
         max_attempts = 3
         lines: list[str] = []
         tool_call_name = ""
@@ -134,7 +124,6 @@ class TextToSQLService:
 
                     result = run.result
 
-                # Reparo automatico: força nova tentativa quando a query nao eh aceita.
                 if (
                     "Somente consultas SELECT sao permitidas." in tool_result_text
                     or "Comando SQL potencialmente perigoso detectado." in tool_result_text
@@ -187,7 +176,6 @@ class TextToSQLService:
         )
 
         new_history = history + result.new_messages()
-        # Janela deslizante para evitar crescimento indefinido.
         max_messages = self.settings.max_history_messages
         if len(new_history) > max_messages:
             new_history = new_history[-max_messages:]
@@ -195,7 +183,6 @@ class TextToSQLService:
         return response, new_history
 
     def sanity_check_tables(self) -> tuple[bool, str]:
-        """Confere se as tabelas esperadas do enunciado estao presentes."""
         expected = {
             "dim_consumidores",
             "dim_produtos",

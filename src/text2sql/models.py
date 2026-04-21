@@ -1,5 +1,3 @@
-"""Modelos Pydantic de entrada e saída do agente."""
-
 from __future__ import annotations
 
 from typing import Annotated
@@ -9,8 +7,6 @@ from pydantic import BaseModel, Field
 
 
 class AnalystResult(BaseModel):
-    """Saída estruturada final do agente."""
-
     conclusion: Annotated[str, MinLen(80)] = Field(
         ..., description="Conclusao analitica em linguagem natural baseada nos resultados SQL, com interpretacao dos dados."
     )
@@ -23,8 +19,6 @@ class AnalystResult(BaseModel):
 
 
 class QueryExecutionResult(BaseModel):
-    """Resultado da execução SQL para auditoria interna."""
-
     sql: str
     row_count: int
     elapsed_ms: int

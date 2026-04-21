@@ -1,5 +1,3 @@
-"""Definicao do agente Text-to-SQL com PydanticAI."""
-
 from __future__ import annotations
 
 import json
@@ -16,15 +14,12 @@ from .models import AnalystResult
 
 @dataclass
 class Deps:
-    """Dependencias do agente em runtime."""
-
     db: DatabaseManager
     audit: AuditLogger
     user_question: str
 
 
 def build_agent(model_name: str, api_key: str) -> Agent:
-    """Cria o agente com provider Google configurado explicitamente."""
     provider = GoogleProvider(api_key=api_key)
     model = GoogleModel(model_name, provider=provider)
 
@@ -67,7 +62,6 @@ Data de hoje: {date.today()}
 
     @text2sql_agent.tool
     async def run_sql_query(ctx: RunContext[Deps], sql: str) -> str:
-        """Executa SQL read-only no SQLite e retorna um resumo em JSON."""
         try:
             result = ctx.deps.db.run_query(sql)
             ctx.deps.audit.log_query(ctx.deps.user_question, result, status="success")
@@ -99,13 +93,11 @@ Data de hoje: {date.today()}
 
     @text2sql_agent.tool
     async def list_tables(ctx: RunContext[Deps]) -> str:
-        """Lista tabelas disponiveis no banco."""
         return ", ".join(ctx.deps.db.list_tables())
 
 
     @text2sql_agent.tool
     async def describe_table(ctx: RunContext[Deps], table_name: str) -> str:
-        """Retorna DDL da tabela informada."""
         return ctx.deps.db.describe_table(table_name)
 
     return text2sql_agent

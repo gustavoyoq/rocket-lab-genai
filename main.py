@@ -1,5 +1,3 @@
-"""CLI do projeto Text-to-SQL Rocket Lab."""
-
 from __future__ import annotations
 
 import asyncio

@@ -1,5 +1,3 @@
-"""Camada de acesso SQLite com guardrails de leitura."""
-
 from __future__ import annotations
 
 import concurrent.futures
@@ -20,8 +18,6 @@ FENCED_SQL_RE = re.compile(r"```(?:sql)?\s*(.*?)```", re.IGNORECASE | re.DOTALL)
 
 
 class DatabaseManager:
-    """Encapsula operações em SQLite com validação e execução segura."""
-
     def __init__(self, db_path: Path, default_limit: int = 100, timeout_seconds: int = 8):
         self.db_path = Path(db_path)
         self.default_limit = default_limit
@@ -55,7 +51,6 @@ class DatabaseManager:
         return "\n\n".join(schema for schema in schemas if schema)
 
     def _normalize_sql(self, sql: str) -> str:
-        """Normaliza SQL recebido do modelo para validação consistente."""
         cleaned = (sql or "").strip()
 
         fenced_match = FENCED_SQL_RE.search(cleaned)
@@ -135,8 +130,6 @@ class DatabaseManager:
 
 
 class AuditLogger:
-    """Grava logs simples de auditoria das consultas."""
-
     def __init__(self, log_path: Path):
         self.log_path = Path(log_path)
         self.log_path.parent.mkdir(parents=True, exist_ok=True)
