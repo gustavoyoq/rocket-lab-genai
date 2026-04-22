@@ -30,10 +30,12 @@ Receber perguntas em linguagem natural, gerar SQL de leitura com Gemini 2.5 Flas
 Esse passo a passo é para a execução do backend e frontend, a criação e modelagem do agente em si fica na pasta 'src'
 
 1. Inicie o backend (porta 8000):
-
-   (na raiz do projeto, com o ambiente virtual ativo)
+   
+   `python -m venv venv`
 
    `.\venv\Scripts\activate`
+
+   `pip install -e .`
 
    `uvicorn backend.app.main:app --host 0.0.0.0 --port 8000 --reload`
 
