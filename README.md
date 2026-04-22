@@ -32,6 +32,7 @@ Esse passo a passo é para a execução do backend e frontend, a criação e mod
 1. Inicie o backend (porta 8000):
 
    (na raiz do projeto, com o ambiente virtual ativo)
+   
    `.\venv\Scripts\activate`
 
    `uvicorn backend.app.main:app --host 0.0.0.0 --port 8000 --reload`
@@ -59,7 +60,7 @@ Se ainda nao tiver o pnpm instalado, rode:
 
 `corepack enable`
 
-### Setup
+### Setup para rodar apenas o agente
 
 1. Criar ambiente virtual:
 
