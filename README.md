@@ -12,20 +12,52 @@ Receber perguntas em linguagem natural, gerar SQL de leitura com Gemini 2.5 Flas
 - PydanticAI (`pydantic-ai-slim[google]`)
 - Gemini 2.5 Flash Lite
 - SQLite
+- FastAPI (backend API)
+- React + Vite + TypeScript (frontend)
 
 ## Estrutura
 
 - `main.py`: CLI interativa e modo one-shot
+- `backend/app/main.py`: API FastAPI para o agente
+- `frontend/`: aplicacao React para interacao com o agente
 - `src/text2sql/config.py`: configuracoes
 - `src/text2sql/db.py`: acesso ao banco + guardrails
 - `src/text2sql/agent.py`: agente e tools
 - `src/text2sql/service.py`: orquestracao do fluxo
 
+## Execucao fullstack (Backend + Frontend)
+
+Esse passo a passo é para a execução do backend e frontend, a criação e modelagem do agente em si fica na pasta 'src'
+
+1. Inicie o backend (porta 8000):
+
+   (na raiz do projeto, com o ambiente virtual ativo)
+   `.\venv\Scripts\activate`
+
+   `uvicorn backend.app.main:app --host 0.0.0.0 --port 8000 --reload`
+
+2. Em outro terminal, inicie o frontend (porta 5173):
+
+   `cd .\frontend\`
+
+   `pnpm install`
+
+   `pnpm dev`
+
+3. Abra no navegador:
+
+   `http://localhost:5173`
+
 ## Pre-requisitos
 
 1. Python 3.11+
-2. Arquivo `banco.db` na raiz do projeto (ou configure `DB_PATH` no `.env`)
-3. Chave Gemini (Google AI Studio)
+2. Node.js 20+ e pnpm (para rodar o frontend Vite)
+3. Arquivo `banco.db` na raiz do projeto (ou configure `DB_PATH` no `.env`)
+4. Chave Gemini (Google AI Studio)
+
+Se ainda nao tiver o pnpm instalado, rode:
+
+`corepack enable`
 
 ### Setup
 
@@ -35,7 +67,7 @@ Receber perguntas em linguagem natural, gerar SQL de leitura com Gemini 2.5 Flas
 
 2. Ativar ambiente virtual:
 
-   `./venv/Scripts/Activate`
+   `./venv/Scripts/Activate.ps1`
 
 3. Instalar dependencias:
 
@@ -43,7 +75,7 @@ Receber perguntas em linguagem natural, gerar SQL de leitura com Gemini 2.5 Flas
 
 4. Criar `.env` a partir do exemplo:
 
-   `Copy-Item .env.example .env`
+   `Copy-Item .envexample .env`
 
 5. Editar `.env` e preencher pelo menos:
 
@@ -52,7 +84,7 @@ Receber perguntas em linguagem natural, gerar SQL de leitura com Gemini 2.5 Flas
    - `DB_PATH=./banco.db`
 
 
-## Como executar
+## Como executar apenas o agente
 
 Antes de executar, confirme:
 

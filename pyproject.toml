@@ -8,6 +8,8 @@ dependencies = [
     "pydantic-ai-slim[google]>=1.81.0",
     "python-dotenv>=1.0.1",
     "annotated-types>=0.7.0",
+    "fastapi>=0.115.0",
+    "uvicorn>=0.30.0",
 ]
 
 [build-system]
