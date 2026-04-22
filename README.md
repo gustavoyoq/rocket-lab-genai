@@ -29,17 +29,34 @@ Receber perguntas em linguagem natural, gerar SQL de leitura com Gemini 2.5 Flas
 
 Esse passo a passo é para a execução do backend e frontend, a criação e modelagem do agente em si fica na pasta 'src'
 
-1. Inicie o backend (porta 8000):
+### Inicie o backend (porta 8000):
    
+   #### Crie e entre no ambiente virtual
+
    `python -m venv venv`
 
    `.\venv\Scripts\activate`
 
+   #### Instale as dependências do projeto
+
    `pip install -e .`
+
+   #### Crie a .env do projeto a partir do exemplo
+
+   `Copy-Item .envexample .env`
+
+   #### A .env precisa ter pelo menos os seguintes itens:
+
+   - `GOOGLE_API_KEY=sua chave de API gerada no Google AI Studio`
+   - `MODEL_NAME=gemini-2.5-flash-lite`
+   - `DB_PATH=./banco.db`
+
+   #### Agora rode o backend
 
    `uvicorn backend.app.main:app --host 0.0.0.0 --port 8000 --reload`
 
-2. Em outro terminal, inicie o frontend (porta 5173):
+
+### Em outro terminal, inicie o frontend (porta 5173):
 
    `cd .\frontend\`
 
@@ -47,7 +64,7 @@ Esse passo a passo é para a execução do backend e frontend, a criação e mod
 
    `pnpm dev`
 
-3. Abra no navegador:
+### Abra no navegador:
 
    `http://localhost:5173`
 
