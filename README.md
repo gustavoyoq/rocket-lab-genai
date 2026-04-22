@@ -32,7 +32,7 @@ Esse passo a passo é para a execução do backend e frontend, a criação e mod
 1. Inicie o backend (porta 8000):
 
    (na raiz do projeto, com o ambiente virtual ativo)
-   
+
    `.\venv\Scripts\activate`
 
    `uvicorn backend.app.main:app --host 0.0.0.0 --port 8000 --reload`
@@ -60,7 +60,7 @@ Se ainda nao tiver o pnpm instalado, rode:
 
 `corepack enable`
 
-### Setup para rodar apenas o agente
+## Setup para rodar apenas o agente
 
 1. Criar ambiente virtual:
 
@@ -83,63 +83,6 @@ Se ainda nao tiver o pnpm instalado, rode:
    - `GOOGLE_API_KEY=sua_chave`
    - `MODEL_NAME=gemini-2.5-flash-lite`
    - `DB_PATH=./banco.db`
-
-
-## Como executar apenas o agente
-
-Antes de executar, confirme:
-
-1. O ambiente virtual esta ativo.
-2. O arquivo `banco.db` existe na raiz do projeto (ou `DB_PATH` aponta para o caminho correto).
-3. O arquivo `.env` tem uma `GOOGLE_API_KEY` valida.
-
-### Modo interativo
-
-1. Rode:
-
-   `python main.py`
-
-2. O sistema deve mostrar:
-
-   `Schema minimo da atividade validado.`
-
-3. Digite perguntas no terminal, por exemplo:
-
-   - `Top 10 produtos mais vendidos`
-   - `Quantidade de pedidos por status`
-   - `Estados com maior ticket medio`
-
-4. Para sair, digite:
-
-   - `sair`
-   - `exit`
-   - `q`
-
-### Modo one-shot
-
-1. Rode uma pergunta unica:
-
-   `python main.py "Top 10 produtos mais vendidos"`
-
-2. A aplicacao imprime:
-
-   - `[TOOL CALL]` com a ferramenta usada
-   - `[TOOL RESULT]` com resultado formatado
-   - `Conclusao`
-   - `SQL executado`
-   - `Confianca`
-
-## Validacao rapida (smoke test)
-
-1. Teste basico:
-
-   `python main.py "Quantidade de pedidos por status"`
-
-2. Verifique se:
-
-   - Nao houve erro de chave API
-   - O SQL foi exibido
-   - A resposta veio com conclusao analitica
 
 ## Troubleshooting
 
@@ -164,12 +107,3 @@ Antes de executar, confirme:
 
 O projeto permite apenas leitura (`SELECT`/`WITH ... SELECT`).
 Comandos de escrita sao bloqueados por guardrails.
-
-## Guardrails implementados
-
-- Apenas SQL `SELECT`
-- Bloqueio de comandos perigosos (`UPDATE`, `DELETE`, `DROP`, etc.)
-- Bloqueio de multiplas statements
-- `LIMIT` padrao em consultas sem limite
-- Timeout de execucao SQL
-- Log de auditoria em `logs/query_audit.jsonl`
