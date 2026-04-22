@@ -41,7 +41,7 @@ Esse passo a passo é para a execução do backend e frontend, a criação e mod
 
    `pip install -e .`
 
-   #### Crie a .env do projeto a partir do exemplo
+   #### Crie a .env na raiz do projeto a partir do exemplo
 
    `Copy-Item .envexample .env`
 
@@ -102,6 +102,10 @@ Se ainda nao tiver o pnpm instalado, rode:
    - `GOOGLE_API_KEY=sua_chave`
    - `MODEL_NAME=gemini-2.5-flash-lite`
    - `DB_PATH=./banco.db`
+
+6. Rodar a aplicação isolada do agente
+
+   `python main.py`
 
 ## Troubleshooting
 
