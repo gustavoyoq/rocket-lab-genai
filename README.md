@@ -25,6 +25,17 @@ Receber perguntas em linguagem natural, gerar SQL de leitura com Gemini 2.5 Flas
 - `src/text2sql/agent.py`: agente e tools
 - `src/text2sql/service.py`: orquestracao do fluxo
 
+## Pre-requisitos
+
+1. Python 3.11+
+2. Node.js 20+ e pnpm (para rodar o frontend Vite)
+3. Arquivo `banco.db` na raiz do projeto (ou configure `DB_PATH` no `.env`)
+4. Chave Gemini (Google AI Studio)
+
+Se ainda nao tiver o pnpm instalado, rode:
+
+`corepack enable`
+
 ## Execucao fullstack (Backend + Frontend)
 
 Esse passo a passo é para a execução do backend e frontend, a criação e modelagem do agente em si fica na pasta 'src'
@@ -67,17 +78,6 @@ Esse passo a passo é para a execução do backend e frontend, a criação e mod
 ### Abra no navegador:
 
    `http://localhost:5173`
-
-## Pre-requisitos
-
-1. Python 3.11+
-2. Node.js 20+ e pnpm (para rodar o frontend Vite)
-3. Arquivo `banco.db` na raiz do projeto (ou configure `DB_PATH` no `.env`)
-4. Chave Gemini (Google AI Studio)
-
-Se ainda nao tiver o pnpm instalado, rode:
-
-`corepack enable`
 
 ## Setup para rodar apenas o agente
 
